@@ -9,46 +9,6 @@ Original file is located at
 
 import pandas as pd
 import numpy as np
-
-num_data_points = 500
-dates = pd.date_range(start='2023-01-01', periods=num_data_points)
-product_ids = np.random.randint(1, 100, num_data_points)
-warehouse_ids = np.random.choice(['A', 'B', 'C'], num_data_points)
-quantity_received = np.random.randint(10, 100, num_data_points)
-quantity_shipped = np.random.randint(5, 50, num_data_points)
-inventory_level = np.random.randint(20, 150, num_data_points)
-transportation_cost = np.random.uniform(10, 50, num_data_points)
-
-df_random = pd.DataFrame({
-    'Date': dates,
-    'Product_ID': product_ids,
-    'Warehouse_ID': warehouse_ids,
-    'Quantity_Received': quantity_received,
-    'Quantity_Shipped': quantity_shipped,
-    'Inventory_Level': inventory_level,
-    'Transportation_Cost': transportation_cost
-})
-
-
-missing_indices = np.random.choice(num_data_points, size=int(num_data_points * 0.1), replace=False)
-df_random.loc[missing_indices, 'Inventory_Level'] = np.nan
-
-
-outlier_indices_received = np.random.choice(num_data_points, size=int(num_data_points * 0.05), replace=False) # 5% outliers
-outlier_indices_shipped = np.random.choice(num_data_points, size=int(num_data_points * 0.05), replace=False) # 5% outliers
-
-df_random.loc[outlier_indices_received, 'Quantity_Received'] = np.random.randint(500, 1000, len(outlier_indices_received))
-df_random.loc[outlier_indices_shipped, 'Quantity_Shipped'] = np.random.randint(200, 500, len(outlier_indices_shipped))
-df_random.to_csv('random_data1.csv', index=False)
-
-print(df_random)
-
-# Handling Missing values
-df_random['Inventory_Level'].fillna(df_random['Inventory_Level'].mean(), inplace=True)
-print(df_random)
-
-import pandas as pd
-import numpy as np
 from scipy.optimize import linprog
 import matplotlib.pyplot as plt
 num_data_points = 500
